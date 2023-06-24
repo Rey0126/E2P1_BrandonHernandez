@@ -20,9 +20,9 @@ import java.awt.Color;
  * @author brhb2
  */
 public class E2P1_BrandonHernandez extends JFrame implements ActionListener {
-    
+
     static ArrayList<Numero> array = new ArrayList<>();
-    
+
     static Numero nume = new Numero();
 
     private JButton btton1;
@@ -86,7 +86,7 @@ public class E2P1_BrandonHernandez extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        boolean accion = false;
         if (e.getSource() == btton1) {
 
             int op = Integer.parseInt(JOptionPane.showInputDialog(null, "1.Agregrar un número\n2.Eliminar número\n3.Menú Principal\nIngrese una opcion"));
@@ -94,9 +94,8 @@ public class E2P1_BrandonHernandez extends JFrame implements ActionListener {
             switch (op) {
 
                 case 1:
-                    
-                    JOptionPane.showMessageDialog(null, "Ingreso la opcion Agregar un número");
-                    int base = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
+
+                    int base = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingreso la opcion Agregar un número\nIngrese la base"));
 
                     while (base < 2 || base > 35) {
                         JOptionPane.showMessageDialog(null, "Base Invalida!");
@@ -111,29 +110,20 @@ public class E2P1_BrandonHernandez extends JFrame implements ActionListener {
                     }
 
                     nume = new Numero(base, num);
-                    array.add(new Numero(base,num));
+                    array.add(nume);
+
+                    accion = true;
 
                     break;
 
                 case 2:
-                    
-                    JOptionPane.showMessageDialog(null, "Ingreso la opcion Eliminar un número");
-                    int base2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
-
-                    while (base2 < 2 || base2 > 35) {
-                        JOptionPane.showMessageDialog(null, "Base Invalida!");
-                        base2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
+                    if (accion) {
+                        int index = Integer.parseInt(JOptionPane.showInputDialog(null, nume.printArray(array) + "\n" + "Ingrese el indice del numero que desea eliminar"));
+                        array.remove(index - 1);
+                        JOptionPane.showMessageDialog(null, "Nueva Lista" + "\n" + nume.printArray(array));
+                    } else{
+                        JOptionPane.showMessageDialog(null,"Primero debes agregar un numero");
                     }
-
-                    int num2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-
-                    while (num2 < 1) {
-                        JOptionPane.showMessageDialog(null, "Número Invalido!");
-                        num2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-                    }
-
-                    nume = new Numero(base2, num2);
-
                     break;
 
                 case 3:
@@ -147,75 +137,78 @@ public class E2P1_BrandonHernandez extends JFrame implements ActionListener {
 
         } else if (e.getSource() == btton2) {
 
-            int op = Integer.parseInt(JOptionPane.showInputDialog(null, "1.Sumar número\n2.Restar número\n3.Multiplicar número\n4Menú Principal\nIngrese una opcion"));
+            int op = Integer.parseInt(JOptionPane.showInputDialog(null, "1.Sumar número\n2.Restar número\n3.Multiplicar número\n4.Menú Principal\nIngrese una opcion"));
 
             switch (op) {
 
                 case 1:
                     
-                    JOptionPane.showMessageDialog(null, "Ingreso la opcion Sumar un número");
-                    int base = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
+                    int index1 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingreso la opcion sumar un número\n" + nume.printArray(array) + "\nIngrese el indice del primer numero"));
+                    int index2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el indice del segundo numero"));
 
-                    while (base < 2 || base > 35) {
-                        JOptionPane.showMessageDialog(null, "Base Invalida!");
-                        base = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
+                    String acum = "";
+
+                    int sum = Integer.parseInt(array.get(index1 - 1).getNum());
+                    sum += Integer.parseInt(array.get(index2 - 1).getNum());
+                    acum += sum;
+
+                    if (array.get(index1 - 1).getBase() > array.get(index2 - 1).getBase()) {
+                        JOptionPane.showMessageDialog(null, "El resultado es " + acum + " base " + array.get(index1 - 1).getBase());
+                    } else if (array.get(index1 - 1).getBase() == array.get(index2 - 1).getBase()) {
+                        JOptionPane.showMessageDialog(null, "El resultado es " + acum + " base " + array.get(index1 - 1).getBase());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El resultado es " + acum + " base " + array.get(index2 - 1).getBase());
                     }
-
-                    int num = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-
-                    while (num < 1) {
-                        JOptionPane.showMessageDialog(null, "Número Invalido!");
-                        num = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-                    }
-
-                    nume = new Numero(base, num);
 
                     break;
 
                 case 2:
-                    
-                    JOptionPane.showMessageDialog(null, "Ingreso la opcion Restar un número");
-                    int base2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
 
-                    while (base2 < 2 || base2 > 35) {
-                        JOptionPane.showMessageDialog(null, "Base Invalida!");
-                        base2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
+                    int index3 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingreso la opcion restar un número\n" + nume.printArray(array) + "\nIngrese el indice del primer numero"));
+                    int index4 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el indice del segundo numero"));
+
+                    String acum2 = "";
+
+                    int sum2 = Integer.parseInt(array.get(index3 - 1).getNum());
+                    sum2 -= Integer.parseInt(array.get(index4 - 1).getNum());
+                    acum2 += sum2;
+                    if (sum2 > 0) {
+                        if (array.get(index3 - 1).getBase() > array.get(index4 - 1).getBase()) {
+                            JOptionPane.showMessageDialog(null, "El resultado es " + acum2 + " base " + array.get(index3 - 1).getBase());
+                        } else if (array.get(index3 - 1).getBase() == array.get(index4 - 1).getBase()) {
+                            JOptionPane.showMessageDialog(null, "El resultado es " + acum2 + " base " + array.get(index3 - 1).getBase());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El resultado es " + acum2 + " base " + array.get(index4 - 1).getBase());
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El resultado es negativo");
                     }
-
-                    int num2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-
-                    while (num2 < 1) {
-                        JOptionPane.showMessageDialog(null, "Número Invalido!");
-                        num2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-                    }
-
-                    nume = new Numero(base2, num2);
 
                     break;
 
                 case 3:
-                    
-                    JOptionPane.showMessageDialog(null, "Ingreso la opcion Multiplicar un número");
-                    int base3 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
 
-                    while (base3 < 2 || base3 > 35) {
-                        JOptionPane.showMessageDialog(null, "Base Invalida!");
-                        base3 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la base"));
+                    int index5 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingreso la opcion multiplicar un número\n" + nume.printArray(array) + "\nIngrese el indice del primer numero"));
+                    int index6 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el indice del segundo numero"));
+
+                    String acum3 = "";
+
+                    int sum3 = Integer.parseInt(array.get(index5 - 1).getNum());
+                    sum3 *= Integer.parseInt(array.get(index6 - 1).getNum());
+                    acum3 += sum3;
+
+                    if (array.get(index5 - 1).getBase() > array.get(index6 - 1).getBase()) {
+                        JOptionPane.showMessageDialog(null, "El resultado es " + acum3 + " base " + array.get(index5 - 1).getBase());
+                    } else if (array.get(index5 - 1).getBase() == array.get(index6 - 1).getBase()) {
+                        JOptionPane.showMessageDialog(null, "El resultado es " + acum3 + " base " + array.get(index5 - 1).getBase());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El resultado es " + acum3 + " base " + array.get(index6 - 1).getBase());
                     }
-
-                    int num3 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-
-                    while (num3 < 1) {
-                        JOptionPane.showMessageDialog(null, "Número Invalido!");
-                        num3 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el numero a convertir"));
-                    }
-
-                    nume = new Numero(base3, num3);
 
                     break;
 
-                case 4:                   
-                    
+                case 4:
+
                     break;
 
                 default:
